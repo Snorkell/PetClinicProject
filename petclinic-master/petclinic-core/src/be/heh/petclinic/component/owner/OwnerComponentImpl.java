@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.sql.DataSource;
 import be.heh.petclinic.domain.*;
+import be.heh.petclinic.component.database.*;
 
 class OwnerComponentImpl implements OwnerComponent{
-    private JdbcOwnerDao ownerDao;
+    private JdbcDao ownerDao;
 
     public OwnerComponentImpl(DataSource dataSource){
-        ownerDao = new JdbcOwnerDao(dataSource);
+        ownerDao = new JdbcDao(dataSource);
     }
     @Override
     public void saveToDb(Owner owner) {
@@ -17,12 +18,12 @@ class OwnerComponentImpl implements OwnerComponent{
     }
     @Override
     public Collection<Owner> getOwners(){
-        List<Owner> owners = ownerDao.getEvents();
+        List<Owner> owners = ownerDao.getOwnerData();
         return owners;
     }
     @Override
     public Collection<Owner> getOwnerByKey(String key, Object value){
-        List<Owner> owners = ownerDao.getEvents();
+        List<Owner> owners = ownerDao.getOwnerData();
         List<Owner> findOwner = new ArrayList<Owner>();
         if(!key.isEmpty()){
             switch(key){

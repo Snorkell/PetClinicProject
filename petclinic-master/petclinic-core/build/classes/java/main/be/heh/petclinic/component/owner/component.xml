@@ -12,7 +12,5 @@
     <bean id="OwnerComponent" class="be.heh.petclinic.component.owner.OwnerComponentImpl">
         <constructor-arg name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="JdbcOwnerDao" class="be.heh.petclinic.component.owner.JdbcOwnerDao">
-        <constructor-arg name="dataSource" ref="dataSource" />
-    </bean>
+
 </beans>

@@ -3,26 +3,26 @@ package be.heh.petclinic.component.vet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collection;
-
+import be.heh.petclinic.component.database.*;
 import javax.sql.DataSource;
 
 import be.heh.petclinic.domain.*;
 
 class VetComponentImpl implements VetComponent {
 
-    private JdbcVetDao vetDao;
+    private JdbcDao vetDao;
   
     public VetComponentImpl(DataSource dataSource){
-        vetDao = new JdbcVetDao(dataSource);
+        vetDao = new JdbcDao(dataSource);
     }
     @Override
     public Collection<Vet> getVets() {
-        List<Vet> vets = cleanList(vetDao.getEvents());
+        List<Vet> vets = cleanList(vetDao.getVetData());
         return vets;
     }
     @Override
     public Collection<Vet> getVetsByKey(String key, Object value){
-        List<Vet> vets = cleanList(vetDao.getEvents());
+        List<Vet> vets = cleanList(vetDao.getVetData());
         List<Vet> findVet = new ArrayList<Vet>();
         switch(key){
             case "id":
@@ -82,6 +82,8 @@ class VetComponentImpl implements VetComponent {
         }
         return null;
     }
-    
-
+    @Override
+    public void saveToDB(Vet vet){
+        vetDao.saveVetToDB(vet);
+    }
 }

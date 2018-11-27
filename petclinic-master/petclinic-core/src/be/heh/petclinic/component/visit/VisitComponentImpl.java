@@ -6,21 +6,22 @@ import javax.sql.DataSource;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import be.heh.petclinic.domain.*;
+import be.heh.petclinic.component.database.*;
 
 class VisitComponentImpl implements VisitComponent{
-    private JdbcVisitDao visitDao;
+    private JdbcDao visitDao;
 
     public VisitComponentImpl(DataSource dataSource){
-        visitDao = new JdbcVisitDao(dataSource);
+        visitDao = new JdbcDao(dataSource);
     }
     @Override
     public Collection<Visit> getVisits(){
-        List<Visit> visits = visitDao.getEvents();
+        List<Visit> visits = visitDao.getVisitData();
         return visits;
     }
     @Override
     public Collection<Visit> getVisitsByKey(String key, Object value){
-        List<Visit> visits = visitDao.getEvents();
+        List<Visit> visits = visitDao.getVisitData();
         List<Visit> findVisit = new ArrayList<Visit>();
         switch(key){
             case "id":

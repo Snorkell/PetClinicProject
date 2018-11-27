@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import be.heh.petclinic.component.vet.VetComponent;
 import be.heh.petclinic.domain.Vet;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 import java.util.Collection;
@@ -44,5 +47,13 @@ public class VetRestController {
 			return new ResponseEntity<Collection<Vet>>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Collection<Vet>>(vets,HttpStatus.OK);
+	}
+	@RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Vet> addVet(@RequestBody Vet vet, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (vet == null)){
+			return new ResponseEntity<Vet>(HttpStatus.BAD_REQUEST);
+		}
+		vetComponentImpl.saveToDB(vet);
+		return new ResponseEntity<Vet>(vet, HttpStatus.CREATED);
 	}
 }

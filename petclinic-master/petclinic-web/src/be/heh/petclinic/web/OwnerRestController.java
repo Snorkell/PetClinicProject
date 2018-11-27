@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.validation.BindingResult;
-
-import be.heh.petclinic.component.owner.JdbcOwnerDao;
 import be.heh.petclinic.component.owner.OwnerComponent;
 import be.heh.petclinic.domain.Owner;
 
@@ -33,8 +31,6 @@ import java.util.Collection;
 public class OwnerRestController {
 	@Autowired
 	private OwnerComponent OwnerComponentImpl;
-	@Autowired
-	public JdbcOwnerDao jdbcOwnerDao;
     
 	//@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@RequestMapping(value="", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

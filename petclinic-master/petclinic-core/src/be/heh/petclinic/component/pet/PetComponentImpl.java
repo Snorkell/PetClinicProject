@@ -6,21 +6,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.sql.DataSource;
 import be.heh.petclinic.domain.*;
+import be.heh.petclinic.component.database.*;
 
 class PetComponentImpl implements PetComponent{
-    private JdbcPetDao petDao;
+    private JdbcDao petDao;
 
     public PetComponentImpl(DataSource dataSource){
-        petDao = new JdbcPetDao(dataSource);
+        petDao = new JdbcDao(dataSource);
+    }
+    @Override
+    public void saveToDB(Pet pet) {
+        petDao.savePetToDB(pet);
     }
     @Override
     public Collection<Pet> getPets(){
-        List<Pet> pets = petDao.getEvents();
+        List<Pet> pets = petDao.getPetData();
         return pets;
     }
     @Override
     public Collection<Pet> getPetsByKey(String key, Object value){
-        List<Pet> pets = petDao.getEvents();
+        List<Pet> pets = petDao.getPetData();
         List<Pet> findPet = new ArrayList<Pet>();
         switch(key){
             case "id":

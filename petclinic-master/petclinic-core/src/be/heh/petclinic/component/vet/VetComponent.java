@@ -10,4 +10,5 @@ public interface VetComponent{
 
     Collection<Vet> getVets();
     Collection<Vet> getVetsByKey(String key, Object value);
+    void saveToDB(Vet vet);
 }
