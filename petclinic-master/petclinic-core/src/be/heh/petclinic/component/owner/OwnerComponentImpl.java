@@ -13,6 +13,10 @@ class OwnerComponentImpl implements OwnerComponent{
         ownerDao = new JdbcDao(dataSource);
     }
     @Override
+    public void updateOwnerToDB(Owner owner) {
+        ownerDao.updateOwnerToDB(owner);
+    }
+    @Override
     public void saveToDb(Owner owner) {
         ownerDao.saveOwnerToDB(owner);
     }

@@ -86,8 +86,14 @@ public class JdbcDao {
     }
     public void saveVisitToDB(Visit visit){
         JdbcTemplate insert = new JdbcTemplate(dataSource);
-        
         insert.execute("INSERT INTO visits(pet_id, visit_date, description) VALUES(\""+visit.getPet().getId()+"\",\""+visit.getDate()+"\",\""+visit.getDescription()+"\")");
+    }
+
+    // Update db
+
+    public void updateOwnerToDB(Owner owner){
+        JdbcTemplate update = new JdbcTemplate(dataSource);
+        update.update("UPDATE owners SET first_name=\""+owner.getFirstName()+"\",last_name=\""+owner.getLastName()+"\",address=\""+owner.getAddress()+"\",city=\""+owner.getCity()+"\",telephone=\""+owner.getTelephone()+"\" WHERE id="+owner.getId()+";");
     }
 
 }

@@ -59,4 +59,12 @@ public class OwnerRestController {
 		OwnerComponentImpl.saveToDb(owner);
 		return new ResponseEntity<Owner>(owner, HttpStatus.CREATED);
 	}
+	@RequestMapping(value="update/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Owner> UpdateOwner(@RequestBody Owner owner, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (owner == null)){
+			return new ResponseEntity<Owner>(HttpStatus.BAD_REQUEST);
+		}
+		OwnerComponentImpl.updateOwnerToDB(owner);
+		return new ResponseEntity<Owner>(owner, HttpStatus.OK);
+	}
 }
