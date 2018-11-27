@@ -86,8 +86,8 @@ public class JdbcDao {
     }
     public void saveVisitToDB(Visit visit){
         JdbcTemplate insert = new JdbcTemplate(dataSource);
-        insert.execute("");
-
+        
+        insert.execute("INSERT INTO visits(pet_id, visit_date, description) VALUES(\""+visit.getPet().getId()+"\",\""+visit.getDate()+"\",\""+visit.getDescription()+"\")");
     }
 
 }

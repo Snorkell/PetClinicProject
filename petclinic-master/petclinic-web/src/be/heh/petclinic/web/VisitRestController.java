@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import be.heh.petclinic.component.visit.VisitComponent;
 import be.heh.petclinic.domain.Visit;
@@ -44,5 +45,13 @@ public class VisitRestController {
 			return new ResponseEntity<Collection<Visit>>(HttpStatus.NOT_FOUND);
 		} 
 		return new ResponseEntity<Collection<Visit>>(visits,HttpStatus.OK);
+	}
+	@RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Visit> addVisit(@RequestBody Visit visit, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (visit == null)){
+			return new ResponseEntity<Visit>(HttpStatus.BAD_REQUEST);
+		}
+		VisitComponentImpl.saveToDB(visit);
+		return new ResponseEntity<Visit>(visit, HttpStatus.CREATED);
 	}
 }
