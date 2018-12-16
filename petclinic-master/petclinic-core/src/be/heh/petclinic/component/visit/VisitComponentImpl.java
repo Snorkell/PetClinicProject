@@ -15,6 +15,10 @@ class VisitComponentImpl implements VisitComponent{
         visitDao = new JdbcDao(dataSource);
     }
     @Override
+    public void updateToDB(Visit visit) {
+        visitDao.updateVisitToDB(visit);
+    }
+    @Override
     public void saveToDB(Visit visit) {
         visitDao.saveVisitToDB(visit);
     }

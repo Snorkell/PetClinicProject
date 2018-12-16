@@ -54,4 +54,12 @@ public class PetRestController {
 		PetComponentImpl.saveToDB(pet);
 		return new ResponseEntity<Pet>(pet, HttpStatus.CREATED);
 	}
+	@RequestMapping(value="update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Pet> UpdatePet(@RequestBody Pet pet, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (pet == null)){
+			return new ResponseEntity<Pet>(HttpStatus.BAD_REQUEST);
+		}
+		PetComponentImpl.updateToDB(pet);
+		return new ResponseEntity<Pet>(pet, HttpStatus.OK);
+	}
 }

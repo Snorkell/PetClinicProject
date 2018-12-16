@@ -50,4 +50,12 @@ public class VetRestController {
 		vetComponentImpl.saveToDB(vet);
 		return new ResponseEntity<Vet>(vet, HttpStatus.CREATED);
 	}
+	@RequestMapping(value="update/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Vet> UpdateVet(@RequestBody Vet vet, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (vet == null)){
+			return new ResponseEntity<Vet>(HttpStatus.BAD_REQUEST);
+		}
+		vetComponentImpl.updateToDB(vet);
+		return new ResponseEntity<Vet>(vet, HttpStatus.OK);
+	}
 }

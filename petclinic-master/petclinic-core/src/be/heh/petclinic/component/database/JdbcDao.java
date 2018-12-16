@@ -75,13 +75,8 @@ public class JdbcDao {
     }
     public void savePetToDB(Pet pet){
         JdbcTemplate insert = new JdbcTemplate(dataSource);
-        int petTypeId = 0;
-        for (PetType var : this.getTypeData()) {
-            if(pet.getType().equals(var.getName())){
-                petTypeId = var.getId();
-                break;
-            }
-        }
+        int petTypeId = this.getTypeId(pet);
+        
         insert.execute("INSERT INTO pets(name, birth_date, type_id, owner_id) VALUES(\""+pet.getName()+"\",\""+pet.getBirthDate()+"\",\""+petTypeId+"\",\""+pet.getOwner().getId()+"\");");
     }
     public void saveVisitToDB(Visit visit){
@@ -94,6 +89,52 @@ public class JdbcDao {
     public void updateOwnerToDB(Owner owner){
         JdbcTemplate update = new JdbcTemplate(dataSource);
         update.update("UPDATE owners SET first_name=\""+owner.getFirstName()+"\",last_name=\""+owner.getLastName()+"\",address=\""+owner.getAddress()+"\",city=\""+owner.getCity()+"\",telephone=\""+owner.getTelephone()+"\" WHERE id="+owner.getId()+";");
+    }
+
+    public void updateVetToDB(Vet vet){
+        JdbcTemplate update = new JdbcTemplate(dataSource);
+        update.update("UPDATE vets SET first_name=\""+vet.getFirstname()+"\",last_name=\""+vet.getFirstname()+"\",description=\""+vet.getDescription()+"\" WHERE id="+vet.getId()+";");
+        update.update("DELETE FROM vet_specialties WHERE vet_id=\""+vet.getId()+"\";");
+        ArrayList<String> currentSpecialties = vet.getSpecialty();
+        for (String spe : currentSpecialties){
+            int id = 0;
+            switch(spe){
+                case "radiology":
+                    id=1;
+                break;
+                case "surgery":
+                    id=2;
+                break;
+                case "general":
+                    id=4;
+                break;
+                case "dentistry":
+                    id=3;
+                break;
+            }
+            update.update("INSERT INTO vet_specialties(vet_id, specialty_id) VALUES(\""+vet.getId()+"\",\""+id+"\");");
+        }
+    }
+
+    public void updatePetToDB(Pet pet){
+        JdbcTemplate update = new JdbcTemplate(dataSource);
+        int typeId = this.getTypeId(pet);
+        update.update("UPDATE pets SET name=\""+pet.getName()+"\" ,birth_date=\""+pet.getBirthDate()+"\" ,type_id=\""+typeId+"\" ,owner_id=\""+pet.getOwner().getId()+"\" WHERE id="+pet.getId()+";");
+    }
+
+    public void updateVisitToDB(Visit visit){
+        JdbcTemplate update = new JdbcTemplate(dataSource);
+        update.update("UPDATE visits SET pet_id="+visit.getPet().getId()+", visit_date=\""+visit.getDate()+"\", description=\""+visit.getDescription()+"\" WHERE id="+visit.getId()+";");
+    }
+    private int getTypeId(Pet pet){
+        int id = 0;
+        for (PetType var : this.getTypeData()) {
+            if(pet.getType().equals(var.getName())){
+                id= var.getId();
+                break;
+            }
+        }
+        return id;
     }
 
 }

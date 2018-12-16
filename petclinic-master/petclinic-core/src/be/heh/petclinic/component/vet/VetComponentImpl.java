@@ -16,6 +16,10 @@ class VetComponentImpl implements VetComponent {
         vetDao = new JdbcDao(dataSource);
     }
     @Override
+    public void updateToDB(Vet vet) {
+        vetDao.updateVetToDB(vet);
+    }
+    @Override
     public Collection<Vet> getVets() {
         List<Vet> vets = cleanList(vetDao.getVetData());
         return vets;

@@ -11,4 +11,5 @@ public interface PetComponent{
     Collection<Pet> getPets();
     Collection<Pet> getPetsByKey(String key, Object value);
     void saveToDB(Pet pet);
+    void updateToDB(Pet pet);
 }

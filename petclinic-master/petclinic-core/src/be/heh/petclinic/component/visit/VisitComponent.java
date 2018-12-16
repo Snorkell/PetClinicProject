@@ -11,4 +11,5 @@ public interface VisitComponent{
     Collection<Visit> getVisits();
     Collection<Visit> getVisitsByKey(String key, Object value);
     void saveToDB(Visit visit);
+    void updateToDB(Visit visit);
 }

@@ -15,6 +15,10 @@ class PetComponentImpl implements PetComponent{
         petDao = new JdbcDao(dataSource);
     }
     @Override
+    public void updateToDB(Pet pet) {
+        petDao.updatePetToDB(pet);
+    }
+    @Override
     public void saveToDB(Pet pet) {
         petDao.savePetToDB(pet);
     }
