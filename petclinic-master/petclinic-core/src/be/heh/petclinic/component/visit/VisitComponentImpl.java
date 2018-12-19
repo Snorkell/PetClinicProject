@@ -23,6 +23,10 @@ class VisitComponentImpl implements VisitComponent{
         visitDao.saveVisitToDB(visit);
     }
     @Override
+    public void deleteFomDB(Visit visit) {
+        visitDao.deleteVisitsFromDB(visit);
+    }
+    @Override
     public Collection<Visit> getVisits(){
         List<Visit> visits = visitDao.getVisitData();
         return visits;

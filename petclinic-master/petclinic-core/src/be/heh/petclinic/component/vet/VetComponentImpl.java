@@ -25,6 +25,10 @@ class VetComponentImpl implements VetComponent {
         return vets;
     }
     @Override
+    public void deleteFomDB(Vet vet) {
+        vetDao.deleteVetFromDB(vet);
+    }
+    @Override
     public Collection<Vet> getVetsByKey(String key, Object value){
         List<Vet> vets = cleanList(vetDao.getVetData());
         List<Vet> findVet = new ArrayList<Vet>();

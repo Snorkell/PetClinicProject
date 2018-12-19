@@ -79,5 +79,8 @@ class OwnerComponentImpl implements OwnerComponent{
         }
         return findOwner;
     }
-    
+    @Override
+    public void deleteFromDB(Owner owner){
+        ownerDao.deleteOwnerFromDB(owner);
+    }
 }

@@ -12,4 +12,5 @@ public interface VetComponent{
     Collection<Vet> getVetsByKey(String key, Object value);
     void saveToDB(Vet vet);
     void updateToDB(Vet vet);
+    void deleteFomDB(Vet vet);
 }

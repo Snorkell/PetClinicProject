@@ -23,6 +23,10 @@ class PetComponentImpl implements PetComponent{
         petDao.savePetToDB(pet);
     }
     @Override
+    public void deleteFromDB(Pet pet) {
+        petDao.deletePetFromDB(pet);
+    }
+    @Override
     public Collection<Pet> getPets(){
         List<Pet> pets = petDao.getPetData();
         return pets;

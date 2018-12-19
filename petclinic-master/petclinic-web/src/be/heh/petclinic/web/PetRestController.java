@@ -62,4 +62,12 @@ public class PetRestController {
 		PetComponentImpl.updateToDB(pet);
 		return new ResponseEntity<Pet>(pet, HttpStatus.OK);
 	}
+	@RequestMapping(value="delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Pet> DeletePet(@RequestBody Pet pet, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (pet == null)){
+			return new ResponseEntity<Pet>(HttpStatus.BAD_REQUEST);
+		}
+		PetComponentImpl.deleteFromDB(pet);
+		return new ResponseEntity<Pet>(HttpStatus.OK);
+	}
 }

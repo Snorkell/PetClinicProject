@@ -56,4 +56,12 @@ public class OwnerRestController {
 		OwnerComponentImpl.updateOwnerToDB(owner);
 		return new ResponseEntity<Owner>(owner, HttpStatus.OK);
 	}
+	@RequestMapping(value="delete/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Owner> DeleteOwner(@RequestBody Owner owner, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (owner == null)){
+			return new ResponseEntity<Owner>(HttpStatus.BAD_REQUEST);
+		}
+		OwnerComponentImpl.deleteFromDB(owner);
+		return new ResponseEntity<Owner>(HttpStatus.OK);
+	}
 }

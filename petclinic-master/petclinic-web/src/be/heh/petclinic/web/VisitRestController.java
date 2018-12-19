@@ -62,4 +62,12 @@ public class VisitRestController {
 		VisitComponentImpl.updateToDB(visit);
 		return new ResponseEntity<Visit>(visit, HttpStatus.OK);
 	}
+	@RequestMapping(value="delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Visit> DeleteVisit(@RequestBody Visit visit, BindingResult bindingResult){
+		if(bindingResult.hasErrors() || (visit == null)){
+			return new ResponseEntity<Visit>(HttpStatus.BAD_REQUEST);
+		}
+		VisitComponentImpl.deleteFomDB(visit);
+		return new ResponseEntity<Visit>(HttpStatus.OK);
+	}
 }

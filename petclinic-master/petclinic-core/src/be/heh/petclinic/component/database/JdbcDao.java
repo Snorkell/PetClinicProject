@@ -137,5 +137,26 @@ public class JdbcDao {
         return id;
     }
 
+    // DELETE FUNCTION
+
+    public void deletePetFromDB(Pet pet){
+        JdbcTemplate delete = new JdbcTemplate(dataSource);
+        delete.update("DELETE FROM pets WHERE id="+pet.getId()+";");
+    }
+    public void deleteVetFromDB(Vet vet){
+        JdbcTemplate delete = new JdbcTemplate(dataSource);
+        delete.update("DELETE FROM vet_specialties WHERE vet_id="+vet.getId()+";");
+        delete.update("DELETE FROM vets WHERE id="+vet.getId()+";");
+    }
+    public void deleteVisitsFromDB(Visit visit){
+        JdbcTemplate delete = new JdbcTemplate(dataSource);
+        delete.update("DELETE FROM visits WHERE id="+visit.getId()+";");
+    }
+    public void deleteOwnerFromDB(Owner owner){
+        JdbcTemplate delete = new JdbcTemplate(dataSource);
+        delete.update("DELETE FROM pets WHERE owner_id="+owner.getId()+";");
+        delete.update("DELETE FROM owners WHERE id="+owner.getId()+";");
+    }
+
 }
 
