@@ -48,13 +48,13 @@ public class JdbcDao {
 
     }
     public void saveVetToDB(Vet vet){
-        JdbcTemplate insert = new JdbcTemplate(dataSource);
-        List<Vet> vets = this.getVetData();
-        int lastId = vets.get(vets.size()-1).getId()+1;
+        JdbcTemplate insert = new JdbcTemplate(dataSource);      
         insert.execute("INSERT INTO vets(first_name, last_name, description) VALUES(\""+vet.getFirstname()+"\",\""+vet.getLastname()+"\",\""+vet.getDescription()+"\")");
-        String query ="";
-        int id =0;
+        List<Vet> vets = this.getVetData();
+        int lastId = vets.get(vets.size()-1).getId();
         for (int i = 0; i< vet.getSpecialty().size(); i++) {
+            String query ="";
+            int id =0;
             switch(vet.getSpecialty().get(i)){
                 case "radiology":
                     id=1;
@@ -70,7 +70,7 @@ public class JdbcDao {
                 break;
             }
             query ="INSERT INTO vet_specialties(vet_id, specialty_id) VALUES("+lastId+","+id+");";
-            insert.update(query);
+            insert.execute(query);
         }
     }
     public void savePetToDB(Pet pet){

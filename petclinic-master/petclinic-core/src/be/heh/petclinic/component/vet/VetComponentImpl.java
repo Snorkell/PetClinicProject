@@ -70,26 +70,24 @@ class VetComponentImpl implements VetComponent {
     }
 
     private List<Vet> cleanList(List<Vet> vets){
-        Vet index = checkForDuplicateSpecialties(vets);
-        vets.remove(index);
-        for (Vet vet : vets) {
-            if(index.getFirstname().equals(vet.getFirstname()) && index.getLastname().equals(vet.getLastname())){   
-                    vet.addSpecialty(index.getSpecialty().get(0));
-            }
-        }
-        return vets;
-    }
-    private Vet checkForDuplicateSpecialties(List<Vet> vets){
+        ArrayList<Vet> indexes = new ArrayList<>();
         for (Vet var : vets) {
-            for (Vet v : vets) {
-                if(v.getFirstname().equals(var.getFirstname()) && v.getLastname().equals(var.getLastname()) && !(v.getSpecialty().equals(var.getSpecialty())))
-                {   
-                    return v;
+            ArrayList<Vet> duplicatedVet = new ArrayList<>();
+            for (Vet vet : vets) {
+                if(var.getFirstname().equals(vet.getFirstname())&&var.getLastname().equals(vet.getLastname())){
+                    duplicatedVet.add(vet);
                 }
             }
+            duplicatedVet.remove(0);
+            for (Vet v : duplicatedVet) {
+                var.addSpecialty(v.getSpecialty().get(0));
+                indexes.add(v);
+            }
         }
-        return null;
+        vets.removeAll(indexes);
+       return vets;
     }
+
     @Override
     public void saveToDB(Vet vet){
         vetDao.saveVetToDB(vet);
