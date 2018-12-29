@@ -93,7 +93,7 @@ public class JdbcDao {
 
     public void updateVetToDB(Vet vet){
         JdbcTemplate update = new JdbcTemplate(dataSource);
-        update.update("UPDATE vets SET first_name=\""+vet.getFirstname()+"\",last_name=\""+vet.getLastName()+"\",description=\""+vet.getDescription()+"\" WHERE id="+vet.getId()+";");
+        update.update("UPDATE vets SET first_name=\""+vet.getFirstname()+"\",last_name=\""+vet.getLastname()+"\",description=\""+vet.getDescription()+"\" WHERE id="+vet.getId()+";");
         update.update("DELETE FROM vet_specialties WHERE vet_id=\""+vet.getId()+"\";");
         ArrayList<String> currentSpecialties = vet.getSpecialty();
         for (String spe : currentSpecialties){
